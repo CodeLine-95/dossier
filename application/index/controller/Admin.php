@@ -6,18 +6,7 @@ use think\Db;
  */
 class Admin extends Base{
     public function index(){
-        $param = $this->request->get();
-        $where = ' 1=1 ';
-        if(!empty($param['name'])){
-            $where = $where.' and (oil_admin.user_name like "%'.$param['name'].'%")';
-        }
-        $admin = Db::table('oil_admin')
-            ->field(['oil_admin.*','oil_group.group_name'])
-            ->join('oil_group_rules', 'oil_admin.id=oil_group_rules.uid','LEFT')
-            ->join('oil_group', 'oil_group_rules.role_id=oil_group.id','LEFT')
-            ->where($where)
-            ->order('oil_admin.id','desc')->paginate(10);
-        $this->assign('admin',$admin);
+        $param = request()->get();
         $this->assign('param',$param);
         return $this->fetch();
     }

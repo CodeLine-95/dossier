@@ -2,6 +2,8 @@
 namespace app\index\controller;
 use think\Controller;
 use app\index\model\Rules;
+use think\Db;
+
 /**
  * 统一api类
  * Class Api
@@ -71,5 +73,34 @@ class Api extends Controller{
         }else{
             return json(['code'=>-1,'msg'=>'访问错误']);
         }
+    }
+
+    /**
+     * 用户ajax列表数据
+     */
+    public function admin_list(){
+        $param = request()->get();
+        $where = ' 1=1 and oil_admin.id != 1 ';
+        if(!empty($param['name'])){
+            $where = $where.' and (oil_admin.user_name like "%'.$param['name'].'%")';
+        }
+        //数据总数
+        $count = Db::table('oil_admin')
+            ->field(['oil_admin.*','oil_group.group_name'])
+            ->join('oil_group_rules', 'oil_admin.id=oil_group_rules.uid','LEFT')
+            ->join('oil_group', 'oil_group_rules.role_id=oil_group.id','LEFT')
+            ->where($where)
+            ->count();
+        //总页数
+        $totalPage = ceil($count/8);
+        //分页数据
+        $admin = Db::table('oil_admin')
+            ->field(['oil_admin.*','oil_group.group_name'])
+            ->join('oil_group_rules', 'oil_admin.id=oil_group_rules.uid','LEFT')
+            ->join('oil_group', 'oil_group_rules.role_id=oil_group.id','LEFT')
+            ->where($where)
+            ->order('oil_admin.id','desc')->paginate(8);
+        //返回值
+        return json(['code'=>0,'msg'=>'','pages'=>$totalPage,'data'=>$admin]);
     }
 }

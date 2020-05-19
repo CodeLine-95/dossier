@@ -4,8 +4,6 @@
  By 贤心
 
 */
-
-
 h1,h2,h3{font-size: 14px;}
 ::-webkit-input-placeholder{color: #999}
 
@@ -13,7 +11,7 @@ h1,h2,h3{font-size: 14px;}
 .site-inline{font-size: 0;}
 .site-tree, .site-content{display: inline-block;  *display:inline; *zoom:1; vertical-align: top; font-size: 14px;}
 .site-tree{width: 220px; min-height: 900px; padding: 5px 0 20px;}
-.site-content{width: 899px; min-height: 900px; padding: 20px 0 10px 20px;}
+.site-content{width: 899px; padding: 20px 0 10px 20px;height: 100%;}
 
 /* 头部 */
 .header{height: 59px; border-bottom: 1px solid #404553;  background-color: #393D49;}
@@ -231,8 +229,8 @@ body .layui-layer-dir .layui-layer-content{padding: 10px;}
 .site-title fieldset legend{margin-left: 20px;  padding: 0 10px; font-size: 22px; font-weight: 300;}
 
 .site-text a{color: #01AAED;}
-.site-h1{margin-bottom: 20px; line-height: 60px; padding-bottom: 10px; color: #393D49; border-bottom: 1px solid #eee;  font-size: 28px; font-weight: 300;}
-.site-h1 .layui-icon{position: relative; top: 5px; font-size: 35px; margin-right: 10px;}
+.site-h1{line-height: 60px; color: #fff; text-align: center;position: relative; background-color: #1296db; border-bottom: 1px solid #1296db;  font-size: 20px; font-weight: 300;}
+.site-h1 .layui-icon{position: absolute;left: 5px;vertical-align:middle; font-size: 26px; margin-right: 10px;}
 .site-text{position:relative;}
 .site-text p{margin-bottom: 10px;  line-height:22px;}
 .site-text em{padding: 0 3px; font-weight: 500; font-style: italic; color: #666;}
