@@ -1,33 +1,50 @@
 {extend name="public/nav" /}
-{block name="title"} 角色列表分配 {/block}
+{block name="title"} 档案管理系统 {/block}
 
 {block name="content"}
-<div class="site-content">
-    <style type="text/css">
-        .layui-center {
-            margin: 10vh auto;
-        }
-
-        .layui-form-label {
-            width: auto !important;
-        }
-
-        .layui-input-block {
-            margin-left: 75px;
-        }
-    </style>
-    <div class="layui-container" style="padding: 15px;">
-        <span class="layui-breadcrumb">
-            <a href="{:url('index/index/index')}">首页</a>
-            <a><cite>用户管理</cite></a>
-            <a href="{:url('index/admin/index')}">角色列表</a>
-            <a><cite>分配</cite></a>
-        </span>
-        <div class="site-text" style="margin-top: 10px;">
+<style>
+    html,body{
+        height: 100%;
+    }
+    input{
+        border: none;
+    }
+    .layui-input-block{
+        margin-left: 0px;
+    }
+    #img img{
+        width: 120px;
+        height: 120px;
+        border-radius: 250px;
+    }
+    .layui-btn-color{
+        background-color: transparent;
+        color: #2D93CA;
+        font-weight: bold;
+        display: block;
+        width: 100%;
+        border: 1px solid #1296db;
+    }
+    #rulesData{
+        background-color: #fff;
+        padding: 10px 0;
+    }
+    .layui-form-checked[lay-skin=primary] i{
+        border-color: #1296db!important;
+        background-color: #1296db;
+        color: #fff;
+    }
+</style>
+<div class="site-content" style="background-color: #cccccc;">
+    <div class="site-h1">
+        <i class="layui-icon layui-icon-left" onclick="window.history.back(-1)"></i>分配角色
+    </div>
+    <div class="layui-container">
+        <div class="site-text" style="margin-top: 30px;">
             <form class="layui-form" method="post">
                 <input type="hidden" name="id" value="{$field.id}">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">角色名</label>
+                    <div>角色名</div>
                     <div class="layui-input-block">
                         <input type="text" name="group_name" disabled value="{$field.group_name}" required lay-verify="required"
                             placeholder="" autocomplete="off" class="layui-input">
@@ -35,14 +52,14 @@
                 </div>
                 <input type="hidden" name="group_rules_old" value="{$field.group_rules}">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">权限分配</label>
+                    <div>权限分配</div>
                     <div class="layui-input-block" id="rulesData">
                         
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="edit">保存</button>
+                        <button class="layui-btn layui-btn-color" lay-submit lay-filter="edit">保存</button>
                     </div>
                 </div>
             </form>

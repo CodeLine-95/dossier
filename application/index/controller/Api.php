@@ -84,6 +84,7 @@ class Api extends Controller{
         if(!empty($param['name'])){
             $where = $where.' and (oil_admin.user_name like "%'.$param['name'].'%")';
         }
+        $param['limit'] = 10;
         //数据总数
         $count = Db::table('oil_admin')
             ->field(['oil_admin.*','oil_group.group_name'])
@@ -92,15 +93,31 @@ class Api extends Controller{
             ->where($where)
             ->count();
         //总页数
-        $totalPage = ceil($count/8);
+        $totalPage = ceil($count/$param['limit']);
         //分页数据
         $admin = Db::table('oil_admin')
             ->field(['oil_admin.*','oil_group.group_name'])
             ->join('oil_group_rules', 'oil_admin.id=oil_group_rules.uid','LEFT')
             ->join('oil_group', 'oil_group_rules.role_id=oil_group.id','LEFT')
             ->where($where)
-            ->order('oil_admin.id','desc')->paginate(8);
+            ->order('oil_admin.id','desc')->paginate($param['limit']);
         //返回值
         return json(['code'=>0,'msg'=>'','pages'=>$totalPage,'data'=>$admin]);
+    }
+
+    /**
+     * 角色ajax
+     */
+    public function group_list(){
+        $param = request()->get();
+        $where = ' 1=1 and id != 1 ';
+        if(!empty($param['name'])){
+            $where = $where.' and (group_name like "%'.$param['name'].'%")';
+        }
+        $param['limit'] = 10;
+        $count = Db::name('group')->where($where)->order('id','desc')->count();
+        $totalPage = ceil($count/$param['limit']);
+        $group = Db::name('group')->where($where)->order('id','desc')->paginate($param['limit']);
+        return json(['code'=>0,'msg'=>'','pages'=>$totalPage,'data'=>$group]);
     }
 }

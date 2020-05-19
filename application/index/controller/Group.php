@@ -7,8 +7,8 @@ use think\Db;
  */
 class Group extends Base{
     public function index(){
-        $group = Db::name('group')->order('id','desc')->paginate(10);
-        $this->assign('group',$group);
+        $param = request()->get();
+        $this->assign('param',$param);
         return $this->fetch();
     }
 

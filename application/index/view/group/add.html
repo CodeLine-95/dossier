@@ -1,53 +1,61 @@
 {extend name="public/nav" /}
-{block name="title"} 角色列表添加 {/block}
+{block name="title"} 档案管理系统 {/block}
 
 {block name="content"}
-<div class="site-content">
-    <style type="text/css">
-        .layui-center {
-            margin: 10vh auto;
-        }
-
-        .layui-form-label {
-            width: auto !important;
-        }
-
-        .layui-input-block {
-            margin-left: 75px;
-        }
-    </style>
-    <div class="layui-container" style="padding: 15px;">
-        <span class="layui-breadcrumb">
-            <a href="{:url('index/index/index')}">首页</a>
-            <a><cite>用户管理</cite></a>
-            <a href="{:url('index/admin/index')}">角色列表</a>
-            <a><cite>添加</cite></a>
-        </span>
-        <div class="site-text" style="margin-top: 10px;">
+<style>
+    html,body{
+        height: 100%;
+    }
+    input{
+        border: none;
+    }
+    .layui-input-block{
+        margin-left: 0px;
+    }
+    #img img{
+        width: 120px;
+        height: 120px;
+        border-radius: 250px;
+    }
+    .layui-btn-color{
+        background-color: transparent;
+        color: #2D93CA;
+        font-weight: bold;
+        display: block;
+        width: 100%;
+        border: 1px solid #1296db;
+    }
+</style>
+<div class="site-content" style="background-color: #cccccc;">
+    <div class="site-h1">
+        <i class="layui-icon layui-icon-left" onclick="window.location.href='/'"></i>添加角色
+    </div>
+    <div class="layui-container">
+        <div class="site-text" style="margin-top: 30px;">
             <form class="layui-form" method="post">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">角色名</label>
+                    <div>角色名</div>
                     <div class="layui-input-block">
                         <input type="text" name="group_name" required lay-verify="required" placeholder=""
                             autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">备注</label>
+                    <div>备注</div>
                     <div class="layui-input-block">
                         <textarea name="group_remark" class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="add">保存</button>
+                        <button class="layui-btn layui-btn-color" lay-submit lay-filter="add">保存</button>
                     </div>
                 </div>
             </form>
 
             <script type="text/javascript">
                 layui.use(['form', 'upload', 'jquery'], function () {
-                    var form = layui.form, upload = layui.upload, layer = layui.layer, $ = layui.jquery;
+                    var form = layui.form, layer = layui.layer, $ = layui.jquery;
                     //提交
                     form.on('submit(add)', function (data) {
                         $.post('{:url("index/group/add")}', data.field, function (res) {
