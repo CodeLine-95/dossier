@@ -1,0 +1,211 @@
+{extend name="public/nav" /}
+{block name="title"} 档案添加 {/block}
+
+{block name="content"}
+<div class="site-content">
+    <style type="text/css">
+        .layui-center {
+            margin: 10vh auto;
+        }
+
+        .layui-form-label {
+            width: auto !important;
+            padding: 9px 5px;
+        }
+
+        .layui-input-block {
+            margin-left: 100px;
+        }
+    </style>
+    <div class="layui-container" style="padding: 15px;">
+        <span class="layui-breadcrumb">
+            <a href="{:url('index/index/index')}">首页</a>
+            <a><cite>档案管理</cite></a>
+            <a href="{:url('index/archives/index')}">档案列表</a>
+            <a><cite>添加</cite></a>
+        </span>
+        <div class="site-text" style="margin-top: 10px;">
+            <form class="layui-form" method="post">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">档案名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" required lay-verify="required" placeholder="" autocomplete="off"
+                            class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">分公司</label>
+                    <div class="layui-input-block">
+                        <select name="enter_id">
+                            {foreach $branch as $p}
+                            <option value="{$p.id}">{$p.branch_name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">管道段</label>
+                    <div class="layui-input-block">
+                        <select name="pipe_id">
+                            {foreach $pipes as $p}
+                            <option value="{$p.unit_id}">{$p.name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">上传图片</label>
+                    <div class="layui-input-block">
+                        <button type="button" class="layui-btn" id="pic_btn">
+                            <i class="layui-icon">&#xe67c;</i>
+                        </button>
+                    </div>
+                    <div id="pics" style="display: none;"></div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">焊口编号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="order_id" required lay-verify="required" placeholder=""
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">桩号编号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="pile_number" required lay-verify="required" placeholder=""
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">施工日期</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="const_time" id="const_time" required lay-verify="required"
+                            placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">检测日期</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="test_time" id="test_time" required lay-verify="required" placeholder=""
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">施工单位</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="const_unit" required lay-verify="required" placeholder=""
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">机组</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="crew" required lay-verify="required" placeholder="" autocomplete="off"
+                            class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">焊材厂家</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="manufactor" required lay-verify="required" placeholder=""
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">无损检测单位</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="ndt_unit" required lay-verify="required" placeholder=""
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">监理单位</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="supervisor_unit" required lay-verify="required" placeholder=""
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">内检测里程</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="mileage" required lay-verify="required" placeholder=""
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">内检测编号</label>
+                    <div class="layui-input-block">
+                        <input type="number" name="mileage_number" required lay-verify="required" placeholder=""
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">排查结果</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="Invest_res" required lay-verify="required" placeholder=""
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="add">保存</button>
+                    </div>
+                </div>
+            </form>
+
+            <script type="text/javascript">
+                layui.use(['form', 'upload', 'jquery', 'laydate'], function () {
+                    var form = layui.form,
+                        upload = layui.upload,
+                        layer = layui.layer,
+                        $ = layui.jquery,
+                        laydate = layui.laydate;
+                    //上传
+                    upload.render({
+                        elem: '#pic_btn' //绑定元素
+                        , url: '{:url("index/api/upload")}' //上传接口
+                        , done: function (res) {
+                            //上传完毕回调
+                            if (res.code == 0) {
+                                layer.msg('上传成功')
+                                var imgHtml = '<div style="width:17%;padding:1%;border:1px solid #ccc;text-align:center">' +
+                                    '<input type="hidden" value="' + res.data.path + '" name="pic[]">' +
+                                    '<img src="' + res.data.path + '" />' +
+                                    '<button class="layui-btn layui-btn-xs del" data-url="' + res.data.path + '">删除</button>'
+                                    + '</div>';
+                                $('#pics').html(imgHtml).show();
+                            } else {
+                                layer.msg('上传失败')
+                            }
+                        }
+                        , error: function () {
+                            layer.msg('上传失败');
+                        }
+                    });
+                    //日期初始化
+                    laydate.render({
+                        elem: '#const_time',
+                    })
+
+                    laydate.render({
+                        elem: '#test_time',
+                    })
+                    //提交
+                    form.on('submit(add)', function (data) {
+                        $.post('{:url("index/archives/add")}', data.field, function (res) {
+                            if (res.code == 0) {
+                                layer.msg('保存成功', { icon: 6, time: 1000 }, function () {
+                                    window.location.href = '{:url("index/archives/index")}';
+                                })
+                            } else {
+                                layer.msg('保存失败');
+                            }
+                        }, 'json');
+                        return false;
+                    });
+                })
+            </script>
+        </div>
+    </div>
+</div>
+{/block}

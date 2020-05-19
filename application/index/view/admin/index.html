@@ -1,0 +1,82 @@
+{extend name="public/nav" /}
+{block name="title"} 用户管理 {/block}
+
+{block name="content"}
+<div class="site-content">
+    <div class="layui-container" style="padding: 15px;">
+        <span class="layui-breadcrumb">
+          <a href="{:url('index/index/index')}">首页</a>
+          <a><cite>用户管理</cite></a>
+          <a><cite>用户列表</cite></a>
+        </span>
+        <div class="site-text" style="margin-top: 10px;">
+            <button onclick="window.location.href = '{:url("index/admin/add")}'" class="layui-btn layui-btn-sm layui-btn-radius">添加</button>
+            <div  style="margin-top:10px;">
+                <form class="layui-form" >
+                    <div class="layui-form-item">
+                        <div class="layui-input-block" style="margin-left:0px;">
+                            <input type="text" name="name" value="{if condition='isset($param.name) && !empty($param.name)'}{$param.name}{/if}"  placeholder="用户名" autocomplete="off"
+                                class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block" style="margin-left:0px;">
+                            <button class="layui-btn" type="submit">查询</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <table class="layui-table">
+                <colgroup>
+                    <col width="60">
+                    <col width="150">
+                    <col width="150">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>用户名</th>
+                    <th>角色名</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $admin as $a}
+                <tr>
+                    <td>{$a.id}</td>
+                    <td>{$a.user_name}</td>
+                    <td>{$a.group_name}</td>
+                    <td>
+                        {if condition="$a.user_name != 'admin'"}
+                        <a href="{:url('index/admin/audit',array('id'=>$a.id))}">分配</a>
+                        <a href="{:url('index/admin/edit',array('id'=>$a.id))}">编辑</a>
+                        <a href="javascript:;" class="del" data-id="{$a.id}" data-name="{$a.user_name}">删除</a>
+                        {/if}
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            {$admin->render()}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    layui.use(['layer','jquery'],function(){
+        var layer = layui.layer,$ = layui.jquery;
+        //删除操作
+        $('.del').click(function(){
+            var id = $(this).data('id');
+            var user_name = $(this).data('name');
+            layer.confirm('您确定要删除 ( '+ user_name + ' ) ?', function () {
+                $.post('{:url("index/admin/del")}',{id: id},function(res){
+                    layer.msg(res.msg)
+                    window.location.reload();
+                },'json');
+            });
+        });
+        
+    });
+</script>
+{/block}

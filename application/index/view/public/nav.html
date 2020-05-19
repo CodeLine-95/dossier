@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{block name="title"}{/block}</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <script type="text/javascript" src="/static/layui/layui.js"></script>
+</head>
+<body style="height: 100%;">
+    <!-- 渲染二叉树菜单 -->
+<div class="layui-main site-inline">
+    <div class="site-tree">
+        <ul class="layui-tree">
+            {foreach $menu as $e}
+                <li><h2>{$e.rule_name}</h2></li>
+                {if condition="!empty($e.rule_child)"}
+                    {foreach $e.rule_child as $c}
+                        <li class="site-tree-noicon">
+                            <a href="{$c.rule_url}">
+                                <cite>{$c.rule_name}</cite>
+                                <!-- <em>Add Admin</em> -->
+                            </a>
+                        </li>
+                    {/foreach}
+                {/if}
+            {/foreach}
+            <li id="logout">
+                <h2>退出</h2>
+            </li>
+        </ul>
+    </div>
+    {block name="content"}
+    {/block}
+</div>
+
+<div class="site-tree-mobile layui-hide">
+    <i class="layui-icon"></i>
+</div>
+
+<div class="site-mobile-shade"></div>
+
+<script type="text/javascript">
+    layui.use(['element','jquery'],function () {
+        var element = layui.element;
+        var $ = layui.jquery;
+        $('.layui-hide').click(function () {
+            $('body').addClass('site-mobile');
+        });
+        $('.site-mobile-shade').click(function () {
+            $('body').removeClass('site-mobile');
+        });
+
+        $('#logout').click(function(){
+            $.get('{:url("index/index/logout")}',function(res){
+                if (res.code == 0) {
+                    layer.msg('退出成功', { icon: 6, time: 1000 }, function () {
+                        window.location.href = '{:url("index/index/index")}';
+                    })
+                } else {
+                    layer.msg('退出失败');
+                }
+            },'json')
+        });
+    });
+</script>
+
+</body>
+</html>

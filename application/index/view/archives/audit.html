@@ -1,0 +1,77 @@
+{extend name="public/nav" /}
+{block name="title"} 档案审核 {/block}
+
+{block name="content"}
+<div class="site-content">
+    <style type="text/css">
+        .layui-center {
+            margin: 10vh auto;
+        }
+    
+        .layui-form-label {
+            width: auto !important;
+            padding: 9px 5px;
+        }
+    
+        .layui-input-block {
+            margin-left: 100px;
+        }
+    </style>
+    <div class="layui-container" style="padding: 15px;">
+        <span class="layui-breadcrumb">
+            <a href="{:url('index/index/index')}">首页</a>
+            <a><cite>档案管理</cite></a>
+            <a href="{:url('index/archives/index')}">档案列表</a>
+            <a><cite>档案审核</cite></a>
+        </span>
+        <div class="site-text" style="margin-top: 10px;">
+            <form class="layui-form" method="post">
+                <input type="hidden" name="id" value="{$field.id}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">审核状态</label>
+                    <div class="layui-input-block">
+                        <select name="audit_status">
+                            <option value="1">处理中</option>
+                            <option value="2">已归档</option>
+                            <option value="3">已注销</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">审核原因</label>
+                    <div class="layui-input-block">
+                        <textarea name="audit_remark" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="edit">保存</button>
+                    </div>
+                </div>
+            </form>
+
+            <script type="text/javascript">
+                layui.use(['form', 'upload', 'jquery'], function () {
+                    var form = layui.form,
+                        upload = layui.upload,
+                        layer = layui.layer,
+                        $ = layui.jquery;
+                    //提交
+                    form.on('submit(edit)', function (data) {
+                        $.post('{:url("index/archives/audit")}', data.field, function (res) {
+                            if (res.code == 0) {
+                                layer.msg('处理成功', { icon: 6, time: 1000 }, function () {
+                                    window.location.href = '{:url("index/archives/index")}';
+                                })
+                            } else {
+                                layer.msg('处理失败');
+                            }
+                        }, 'json');
+                        return false;
+                    });
+                })
+            </script>
+        </div>
+    </div>
+</div>
+{/block}

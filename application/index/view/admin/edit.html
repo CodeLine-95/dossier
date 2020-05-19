@@ -1,0 +1,104 @@
+{extend name="public/nav" /}
+{block name="title"} 用户管理 {/block}
+
+{block name="content"}
+<div class="site-content">
+    <style type="text/css">
+        .layui-center{
+            margin: 10vh auto;
+        }
+        .layui-form-label{
+            width: auto !important;
+        }
+        .layui-input-block{
+            margin-left: 75px;
+        }
+    </style>
+    <div class="layui-container" style="padding: 15px;">
+        <span class="layui-breadcrumb">
+          <a href="{:url('index/index/index')}">首页</a>
+          <a><cite>用户管理</cite></a>
+            <a href="{:url('index/admin/index')}">用户列表</a>
+          <a><cite>编辑</cite></a>
+        </span>
+        <div class="site-text" style="margin-top: 10px;">
+            <form class="layui-form" method="post">
+                <input type="hidden" name="id" value="{$field.id}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="user_name" disabled value="{$field.user_name}" required  lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="user_pass" placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">头像</label>
+                    <div class="layui-input-block">
+                        <button type="button" class="layui-btn" id="test1">
+                            <i class="layui-icon">&#xe67c;</i>上传
+                        </button>
+                        <input type="hidden" name="user_face" value="{$field.user_face}" placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                    {if condition="!empty($field.user_face)"}
+                    <div id="img" style="display: block;">
+                        <img src="{$field.user_face}" alt="">
+                    </div>
+                    {else}
+                    <div id="img" style="display: none;">
+                    </div>
+                    {/if}
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="add">保存</button>
+                    </div>
+                </div>
+            </form>
+
+            <script type="text/javascript">
+                layui.use(['form','upload','jquery'],function () {
+                    var form = layui.form,upload = layui.upload,layer = layui.layer,$ = layui.jquery;
+                    //上传
+                    upload.render({
+                        elem: '#test1' //绑定元素
+                        ,url: '{:url("index/api/upload")}' //上传接口
+                        ,done: function(res){
+                            //上传完毕回调
+                            if (res.code == 0){
+                                layer.msg('上传成功')
+                                $('input[name=user_face]').val(res.data.path);
+                                $('#img').html('<img src="'+res.data.path+'" />');
+                                $('#img').show();
+                            }else{
+                                layer.msg('上传失败')
+                            }
+                        }
+                        ,error: function(){
+                            layer.msg('上传失败');
+                        }
+                    });
+
+                    //提交
+                    form.on('submit(add)',function (data) {
+                        $.post('{:url("index/admin/edit")}',data.field,function (res) {
+                            if (res.code == 0){
+                                layer.msg('保存成功',{icon:6,time:1000},function () {
+                                    window.location.href = '{:url("index/admin/index")}';
+                                })
+                            }else{
+                                layer.msg('保存失败');
+                            }
+                        },'json');
+                        return false;
+                    });
+                })
+            </script>
+        </div>
+    </div>
+</div>
+{/block}

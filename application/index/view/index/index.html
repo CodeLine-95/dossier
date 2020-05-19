@@ -1,0 +1,85 @@
+{extend name="public/nav" /}
+{block name="title"} 首页 {/block}
+
+{block name="content"}
+<style type="text/css" media="all">
+    .layui-col-md3{
+        width: 22.3333%;
+        display:inline-block;
+        margin: 5%;
+    }
+    .layui-col-md3 a{
+        display:block;
+    }
+    .layui-col-md3-img{
+        border-radius: 15px;
+        border: 2px solid #1296db;
+        padding: 15%;
+        margin: 5%;
+        text-align: center;
+        vertical-align: middle;
+    }
+    .layui-col-md3-title{
+        margin-top: 10px;
+        font-size: 12px;
+        text-align: center;
+        font-weight: 500;
+    }
+</style>
+<div class="site-content">
+    <div class="layui-container" style="padding: 15px;">
+        <span class="layui-breadcrumb">
+          <a><cite>首页</cite></a>
+        </span>
+        <div class="site-text">
+            <div class="layui-row">
+                {foreach $menu as $e}
+                    {if condition="!empty($e.rule_child)"}
+                        {foreach $e.rule_child as $c}
+                            <div class="layui-col-md3">
+                               <div class="layui-col-md3-img">
+                                    <a href="{$c.rule_url}">
+                                        <img src="{$c.rule_icon}" style="width:100%;" alt="{$c.rule_name}" />
+                                    </a>
+                                </div> 
+                                <div class="layui-col-md3-title">
+                                    {$c.rule_name}
+                                </div>
+                            </div>
+                        {/foreach}
+                    {/if}
+                {/foreach}
+                <div class="layui-col-md3">
+                   <div class="layui-col-md3-img">
+                        <a href="javascript:;" id="logout">
+                            <img src="/static/img/logout.png" style="width:100%;" alt="{$c.rule_name}" />
+                        </a>
+                    </div> 
+                    <div class="layui-col-md3-title">
+                        退出
+                    </div>
+                </div>
+                
+                <script type="text/javascript">
+                    layui.use(['element','jquery'],function () {
+                        var element = layui.element;
+                        var $ = layui.jquery;
+                
+                        $('#logout').click(function(){
+                            $.get('{:url("index/index/logout")}',function(res){
+                                if (res.code == 0) {
+                                    layer.msg('退出成功', { icon: 6, time: 1000 }, function () {
+                                        window.location.href = '{:url("index/index/index")}';
+                                    })
+                                } else {
+                                    layer.msg('退出失败');
+                                }
+                            },'json')
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

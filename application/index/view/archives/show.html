@@ -1,0 +1,146 @@
+{extend name="public/nav" /}
+{block name="title"} 档案查看 {/block}
+
+{block name="content"}
+<div class="site-content">
+    <style type="text/css">
+        .layui-center {
+            margin: 10vh auto;
+        }
+
+        .layui-form-label {
+            width: auto !important;
+            padding: 9px 5px;
+        }
+
+        .layui-input-block {
+            margin-left: 100px;
+            line-height: 36px;
+        }
+    </style>
+    <div class="layui-container" style="padding: 15px;">
+        <span class="layui-breadcrumb">
+            <a href="{:url('index/index/index')}">首页</a>
+            <a><cite>档案管理</cite></a>
+            <a href="{:url('index/archives/index')}">档案列表</a>
+            <a><cite>查看</cite></a>
+        </span>
+        <div class="site-text" style="margin-top: 10px;">
+            <div class="layui-form">
+                <input type="hidden" name="id" value="{$field.id}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">档案名称</label>
+                    <div class="layui-input-block">
+                        {$field.name}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">分公司</label>
+                    <div class="layui-input-block">
+                        {$field.enter_id}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">管道段</label>
+                    <div class="layui-input-block">
+                        {$field.pipe_id}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">图片</label>
+                    {if condition="!empty($field['pic'])"}
+                    <div id="pics" style="display: block;">
+                        {foreach $field['pic'] as $p}
+                        <div style="width:17%;padding:1%;border:1px solid #ccc;text-align:center">
+                            <input type="hidden" value="{$p}" name="pic[]">
+                            <img src="{$p}" />
+                            <!-- <button type="button" class="layui-btn layui-btn-xs del" data-url="{$p}">删除</button> -->
+                        </div>
+                        {/foreach}
+                    </div>
+                    {else}
+                    <div id="pics" style="display: none;"></div>
+                    {/if}
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">焊口编号</label>
+                    <div class="layui-input-block">
+                        {$field.order_id}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">桩号编号</label>
+                    <div class="layui-input-block">
+                        {$field.pile_number}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">施工日期</label>
+                    <div class="layui-input-block">
+                        {:date('Y-m-d',$field.const_time)}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">检测日期</label>
+                    <div class="layui-input-block">
+                        {:date('Y-m-d',$field.test_time)}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">施工单位</label>
+                    <div class="layui-input-block">
+                        {$field.const_unit}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">机组</label>
+                    <div class="layui-input-block">
+                        {$field.crew}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">焊材厂家</label>
+                    <div class="layui-input-block">
+                        {$field.manufactor}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">无损检测单位</label>
+                    <div class="layui-input-block">
+                        {$field.ndt_unit}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">监理单位</label>
+                    <div class="layui-input-block">
+                        {$field.supervisor_unit}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">内检测里程</label>
+                    <div class="layui-input-block">
+                        {$field.mileage}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">内检测编号</label>
+                    <div class="layui-input-block">
+                        {$field.mileage_number}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">排查结果</label>
+                    <div class="layui-input-block">
+                        {$field.Invest_res}
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <a class="layui-btn" style="color: #fff;" href="javascript:window.history.go(-1)">返回</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

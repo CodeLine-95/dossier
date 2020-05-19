@@ -1,0 +1,73 @@
+{extend name="public/nav" /}
+{block name="title"} 管道添加 {/block}
+
+{block name="content"}
+<div class="site-content">
+    <style type="text/css">
+        .layui-center {
+            margin: 10vh auto;
+        }
+
+        .layui-form-label {
+            width: auto !important;
+            padding: 9px 5px;
+        }
+
+        .layui-input-block {
+            margin-left: 75px;
+        }
+    </style>
+    <div class="layui-container" style="padding: 15px;">
+        <span class="layui-breadcrumb">
+            <a href="{:url('index/index/index')}">首页</a>
+            <a><cite>管道管理</cite></a>
+            <a href="{:url('index/pipes/index')}">管道列表</a>
+            <a><cite>编辑</cite></a>
+        </span>
+        <div class="site-text" style="margin-top: 10px;">
+            <form class="layui-form" method="post">
+                <input type="hidden" name="id" value="{$field.id}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">管道编号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="unit_id" value="{$field.unit_id}" required lay-verify="required"
+                            placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">管道名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" value="{$field.name}" required lay-verify="required"
+                            placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <input type="hidden" name="name_old" value="{$field.name}">
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="edit">保存</button>
+                    </div>
+                </div>
+            </form>
+
+            <script type="text/javascript">
+                layui.use(['form', 'upload', 'jquery'], function () {
+                    var form = layui.form, upload = layui.upload, layer = layui.layer, $ = layui.jquery;
+                    //提交
+                    form.on('submit(edit)', function (data) {
+                        $.post('{:url("index/pipes/edit")}', data.field, function (res) {
+                            if (res.code == 0) {
+                                layer.msg('保存成功', { icon: 6, time: 1000 }, function () {
+                                    window.location.href = '{:url("index/pipes/index")}';
+                                })
+                            } else {
+                                layer.msg('保存失败');
+                            }
+                        }, 'json');
+                        return false;
+                    });
+                })
+            </script>
+        </div>
+    </div>
+</div>
+{/block}

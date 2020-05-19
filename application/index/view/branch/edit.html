@@ -1,0 +1,86 @@
+{extend name="public/nav" /}
+{block name="title"} 公司列表编辑 {/block}
+
+{block name="content"}
+<div class="site-content">
+    <style type="text/css">
+        .layui-center {
+            margin: 10vh auto;
+        }
+    
+        .layui-form-label {
+            width: auto !important;
+            padding: 9px 5px;
+        }
+    
+        .layui-input-block {
+            margin-left: 100px;
+        }
+    </style>
+    <div class="layui-container" style="padding: 15px;">
+        <span class="layui-breadcrumb">
+            <a href="{:url('index/index/index')}">首页</a>
+            <a><cite>公司管理</cite></a>
+            <a href="{:url('index/branch/index')}">公司列表</a>
+            <a><cite>编辑</cite></a>
+        </span>
+        <div class="site-text" style="margin-top: 10px;">
+            <form class="layui-form" method="post">
+                <input type="hidden" name="id" value="{$field.id}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">公司名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$field.branch_name}" name="branch_name" required lay-verify="required" placeholder=""
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <input type="hidden" name="branch_name_old" value="{$field.branch_name}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">公司电话</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$field.branch_tel}" name="branch_tel" required lay-verify="required" placeholder=""
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">联系人</label>
+                    <div class="layui-input-block">
+                        <input type="text" value="{$field.branch_user}" name="branch_user" required lay-verify="required" placeholder=""
+                            autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">备注</label>
+                    <div class="layui-input-block">
+                        <textarea name="branch_desc" class="layui-textarea">{$field.branch_desc}</textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="edit">保存</button>
+                    </div>
+                </div>
+            </form>
+
+            <script type="text/javascript">
+                layui.use(['form', 'upload', 'jquery'], function () {
+                    var form = layui.form, upload = layui.upload, layer = layui.layer, $ = layui.jquery;
+                    //提交
+                    form.on('submit(edit)', function (data) {
+                        $.post('{:url("index/branch/edit")}', data.field, function (res) {
+                            if (res.code == 0) {
+                                layer.msg('保存成功', { icon: 6, time: 1000 }, function () {
+                                    window.location.href = '{:url("index/branch/index")}';
+                                })
+                            } else {
+                                layer.msg('保存失败');
+                            }
+                        }, 'json');
+                        return false;
+                    });
+                })
+            </script>
+        </div>
+    </div>
+</div>
+{/block}

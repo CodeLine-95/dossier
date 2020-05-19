@@ -1,0 +1,100 @@
+{extend name="public/nav" /}
+{block name="title"} 角色列表分配 {/block}
+
+{block name="content"}
+<div class="site-content">
+    <style type="text/css">
+        .layui-center {
+            margin: 10vh auto;
+        }
+
+        .layui-form-label {
+            width: auto !important;
+        }
+
+        .layui-input-block {
+            margin-left: 75px;
+        }
+    </style>
+    <div class="layui-container" style="padding: 15px;">
+        <span class="layui-breadcrumb">
+            <a href="{:url('index/index/index')}">首页</a>
+            <a><cite>用户管理</cite></a>
+            <a href="{:url('index/admin/index')}">角色列表</a>
+            <a><cite>分配</cite></a>
+        </span>
+        <div class="site-text" style="margin-top: 10px;">
+            <form class="layui-form" method="post">
+                <input type="hidden" name="id" value="{$field.id}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">角色名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="group_name" disabled value="{$field.group_name}" required lay-verify="required"
+                            placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <input type="hidden" name="group_rules_old" value="{$field.group_rules}">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">权限分配</label>
+                    <div class="layui-input-block" id="rulesData">
+                        
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="edit">保存</button>
+                    </div>
+                </div>
+            </form>
+
+            <script type="text/javascript">
+                layui.use(['form', 'upload', 'jquery','tree'], function () {
+                    var form = layui.form,
+                     upload = layui.upload, 
+                     layer = layui.layer, 
+                     $ = layui.jquery, 
+                     tree = layui.tree;
+                     var id = $('input[name=id]').val();
+                     var group_rules_old = $('input[name=group_rules_old]').val();
+                     $.post('{:url("index/api/treeData")}', {id: id, group_rules_old: group_rules_old}, function (res) {
+                        //初始二叉树列表
+                        tree.render({
+                            elem: '#rulesData'  //绑定元素
+                            , id: 'rulesId'    //索引编号，对这个tree进行其他操作时要用到
+                            , data: res.data  //ajax请求的二叉树指定格式的数据
+                            , showCheckbox: true   //开启复选框
+                            , showLine: true   //开启层级线条指示
+                            , text: {   //无数据节点时的提示
+                                defaultNodeName: 'group_rules' //节点默认名称
+                                , none: '无数据' //数据为空时的提示文本
+                            }
+                        });
+                        //进行制定分配功能的选中和非选中
+                        $.post('{:url("index/api/notParentRules")}',{nodeStr: group_rules_old},function(resData){
+                            tree.setChecked('rulesId', resData.data);
+                        },'json');
+                    }, 'json');
+                    //提交
+                    form.on('submit(edit)', function (data) {
+                        var arr_box = [];
+                        $('input[type=checkbox]:checked').each(function () {
+                            arr_box.push($(this).val());
+                        });
+                        data.field.group_rules = arr_box.join(",");
+                        $.post('{:url("index/group/allocation")}', data.field, function (res) {
+                            if (res.code == 0) {
+                                layer.msg('分配成功', { icon: 6, time: 1000 }, function () {
+                                    window.location.href = '{:url("index/group/index")}';
+                                })
+                            } else {
+                                layer.msg('分配失败');
+                            }
+                        }, 'json');
+                        return false;
+                    });
+                })
+            </script>
+        </div>
+    </div>
+</div>
+{/block}

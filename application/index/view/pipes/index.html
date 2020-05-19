@@ -1,0 +1,61 @@
+{extend name="public/nav" /}
+{block name="title"} 管道列表 {/block}
+
+{block name="content"}
+<div class="site-content">
+    <div class="layui-container" style="padding: 15px;">
+        <span class="layui-breadcrumb">
+            <a href="{:url('index/index/index')}">首页</a>
+            <a><cite>管道管理</cite></a>
+            <a><cite>管道列表</cite></a>
+        </span>
+        <div class="site-text" style="margin-top: 10px;">
+            <button onclick="window.location.href = '/index/pipes/add'"
+                class="layui-btn layui-btn-sm layui-btn-radius">添加</button>
+            <table class="layui-table">
+                <colgroup>
+                    <col width="100">
+                    <col width="150">
+                    <col>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>管道编号</th>
+                        <th>管道名称</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {foreach $pipes as $g}
+                    <tr>
+                        <td>{$g.unit_id}</td>
+                        <td>{$g.name}</td>
+                        <td>
+                            <a href="{:url('index/pipes/edit',array('id'=>$g.id))}">编辑</a>
+                            <a href="javascript:;" class="del" data-id="{$g.id}" data-name="{$g.name}">删除</a>
+                        </td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    layui.use(['layer', 'jquery'], function () {
+        var layer = layui.layer, $ = layui.jquery;
+        //删除操作
+        $('.del').click(function () {
+            var id = $(this).data('id');
+            var user_name = $(this).data('name');
+            layer.confirm('您确定要删除 ( ' + user_name + ' ) ?', function () {
+                $.post('{:url("index/pipes/del")}', { id: id }, function (res) {
+                    layer.msg(res.msg)
+                    window.location.reload();
+                }, 'json');
+            });
+        });
+
+    });
+</script>
+{/block}
