@@ -1,5 +1,5 @@
 {extend name="public/nav" /}
-{block name="title"} 首页 {/block}
+{block name="title"} 档案管理系统 {/block}
 
 {block name="content"}
 <style type="text/css" media="all">
@@ -59,9 +59,10 @@
                 </div>
                 
                 <script type="text/javascript">
-                    layui.use(['element','jquery'],function () {
+                    layui.use(['element','jquery','layer'],function () {
                         var element = layui.element;
                         var $ = layui.jquery;
+                        var layer = layui.layer;
                 
                         $('#logout').click(function(){
                             $.get('{:url("index/index/logout")}',function(res){

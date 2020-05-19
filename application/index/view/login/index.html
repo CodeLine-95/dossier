@@ -1,68 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>登录</title>
-    <link rel="stylesheet" href="/static/layui/css/layui.css">
-    <script type="text/javascript" src="/static/layui/layui.js"></script>
-    <style type="text/css">
-        .layui-center{
-            margin: 10vh auto;
-        }
-        .layui-form-label{
-            width: auto !important;
-        }
-        .layui-input-block{
-            margin-left: 75px;
-        }
-    </style>
-</head>
-<body>
-<div class="layui-container">
-    <div class="layui-row">
-        <div class="layui-center">
-            <h1 style="text-align: center;margin: 10vh auto;">登录</h1>
-            <form class="layui-form">
+{extend name="public/nav" /}
+{block name="title"} 档案管理系统 {/block}
+{block name="content"}
+<style type="text/css" media="all">
+    html,body{
+        height: 100%;
+    }
+    input{
+        border: none;
+    }
+    h1{
+        text-align: center;
+        height: 60px;
+        line-height: 60px;
+        font-size: 20px;
+        border-bottom: 1px solid #9F9F9F;
+        color: #1296db;
+    }
+    .layui-input-block{
+        margin-left: 0px;
+    }
+    .layui-btn-color{
+        background-color: transparent;
+        color: #2D93CA;
+        font-weight: bold;
+        display: block;
+        width: 100%;
+        border: 1px solid #1296db;
+    }
+    .layui-ul-li-action a{
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+</style>
+
+<div class="site-content" style="background-color: #cccccc;height: 100%;">
+    <div class="site-h1">
+        档案管理系统
+    </div>
+    <div class="layui-container">
+        <h1>登录</h1>
+        <div class="site-text" style="margin-top: 30px;">
+            <form class="layui-form" method="post">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">输入框</label>
+                    <div>用户名</div>
                     <div class="layui-input-block">
-                        <input type="text" name="user_name" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+                        <input type="text" name="user_name" lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">密码框</label>
+                    <div>密码</div>
                     <div class="layui-input-block">
-                        <input type="password" name="user_pass" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        <input type="password" name="user_pass" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="login">登录</button>
+                        <button class="layui-btn layui-btn-color" lay-submit lay-filter="login">登录</button>
                     </div>
                 </div>
             </form>
-        </div>
 
-        <script>
-            layui.use(['form','jquery'], function(){
-                var form = layui.form,
-                 $ = layui.jquery,layer = layui.layer;
-                //监听提交
-                form.on('submit(login)', function(data){
-                    $.post('{:url("index/login/loginAction")}',data.field,function (res) {
-                        if (res.code == 0){
-                            layer.msg(res.msg);
-                            window.location.href = '{:url("index/index")}';
-                        }else{
-                            layer.msg(res.msg);
-                        }
-                    },'json');
-                    return false;
+            <script type="text/javascript">
+                layui.use(['form','jquery'], function(){
+                    var form = layui.form,
+                        $ = layui.jquery,layer = layui.layer;
+                    //监听提交
+                    form.on('submit(login)', function(data){
+                        $.post('{:url("index/login/loginAction")}',data.field,function (res) {
+                            if (res.code == 0){
+                                layer.msg(res.msg);
+                                window.location.href = '{:url("index/index")}';
+                            }else{
+                                layer.msg(res.msg);
+                            }
+                        },'json');
+                        return false;
+                    });
                 });
-            });
-        </script>
+            </script>
+        </div>
     </div>
 </div>
-</body>
-</html>
+{/block}

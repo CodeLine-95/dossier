@@ -104,7 +104,7 @@
                         '                        <div class="layui-ul-li-action">\n' +
                         '                             <a href="/index/admin/audit?id='+item['id']+'">分配</a>\n' +
                         '                             <a href="/index/admin/edit?id='+item['id']+'">编辑</a>\n' +
-                        '                             <a href="javascript:;" class="del" data-id="'+item['id']+'" data-name="'+item['user_name']+'">删除</a>\n' +
+                        '                             <a href="javascript:;" class="del" onclick="del(this)" data-id="'+item['id']+'" data-name="'+item['user_name']+'">删除</a>\n' +
                         '                        </div>\n' +
                         '                    </div>\n' +
                         '                </li>');
@@ -116,18 +116,21 @@
                 });
             }
         });
-        //删除操作
-        $('.del').click(function(){
-            var id = $(this).data('id');
-            var user_name = $(this).data('name');
-            layer.confirm('您确定要删除 ( '+ user_name + ' ) ?', function () {
-                $.post('{:url("index/admin/del")}',{id: id},function(res){
-                    layer.msg(res.msg)
-                    window.location.reload();
-                },'json');
-            });
-        });
         
     });
+
+    function del(obj) {
+        layui.use(['layer','jquery'],function() {
+            var layer = layui.layer,$ = layui.jquery;
+            var id = $(obj).attr('data-id');
+            var user_name = $(obj).attr('data-name');
+            layer.confirm('您确定要删除 ( ' + user_name + ' ) ?', function () {
+                $.post('{:url("index/admin/del")}', {id: id}, function (res) {
+                    layer.msg(res.msg);
+                    window.location.reload();
+                }, 'json');
+            });
+        });
+    }
 </script>
 {/block}
