@@ -58,6 +58,12 @@ class Login extends Controller{
                 $params['user_pass'] = password_hash(config('database.auth_key').$params['user_pass'],PASSWORD_BCRYPT);
                 $params['create_time'] = date('Y-m-d H:i:s');
                 if (Db::name('admin')->insert($params)){
+                    $user = Db::name('admin')->where(['user_name'=>$params['user_name']])->find();
+                    $insert = [
+                        'uid' => $user['id'],
+                        'role_id' => $params['group_id']
+                    ];
+                    Db::name('group_rules')->insert($insert);
                     return json(['code'=>0,'msg'=>'注册成功']);
                 }else{
                     return json(['code'=>-1,'msg'=>'注册失败']);

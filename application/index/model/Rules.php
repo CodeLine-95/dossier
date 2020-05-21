@@ -10,14 +10,14 @@ class Rules extends Model{
             $where = '';
             //状态判断：ALL-》获取全部权限，1菜单权限，2隐藏权限
             $where1 = ($status == 'All') ? $where : $where . ' rule_status = '.$status;
-            $result = $this->field(true)->where($where)->where($where1)->select();
+            $result = $this->field(true)->where($where1)->select();
             $menu = $this->prepareMenuAjax($result,$nodeStr);
         }else{
             //超级管理员没有节点数组
-            $where = empty($nodeStr) ? '' : 'id in('.$nodeStr.') and ';
+            $where = empty($nodeStr) ? '' : 'id in('.$nodeStr.') and';
             //状态判断：ALL-》获取全部权限，1菜单权限，2隐藏权限
             $where1 = ($status == 'All') ? $where : $where . ' rule_status = '.$status;
-            $result = $this->field(true)->where($where)->where($where1)->select();
+            $result = $this->field(true)->where($where1)->select();
             $menu = $this->prepareMenu($result); 
         }
         return $menu;

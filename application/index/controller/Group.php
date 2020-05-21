@@ -80,6 +80,7 @@ class Group extends Base{
      public function allocation(){
          if(request()->isPost()){
             $params = request()->post();
+            $params['group_rules'] = $params['group_rules'].',20';
             unset($params['group_rules_old']);
             if (Db::name('group')->update($params)){
                 return json(['code'=>0,'msg'=>'ok']);
