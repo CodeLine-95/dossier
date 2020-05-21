@@ -96,7 +96,7 @@ class Admin extends Base{
             if($field){
                 $params['id'] = $field['id'];
                 if (Db::name('group_rules')->update($params)){
-                    Db::name('admin')->update(['id'=>$params['uid'],'group_id'=>$params['role_id']]);
+                    Db::name('admin')->update(['id'=>$params['uid'],'group_id'=>$params['role_id'],'region_id'=>$params['region_id']]);
                     
                     return json(['code'=>0,'msg'=>'ok']);
                 }else{
@@ -104,7 +104,7 @@ class Admin extends Base{
                 }
             }else{
                 if (Db::name('group_rules')->insert($params)){
-                    Db::name('admin')->update(['id'=>$params['uid'],'group_id'=>$params['role_id']]);
+                    Db::name('admin')->update(['id'=>$params['uid'],'group_id'=>$params['role_id'],'region_id'=>$params['region_id']]);
                     return json(['code'=>0,'msg'=>'ok']);
                 }else{
                     return json(['code'=>-1,'msg'=>'error']);
@@ -116,6 +116,8 @@ class Admin extends Base{
         $this->assign('group',$group);
         $field = Db::name('admin')->where(['id'=>$id])->find();
         $this->assign('field',$field);
+        $region = Db::name('region')->where(['group_id'=>$group['id']])->order('id desc')->select();
+        $this->assign('region',$region);
         return $this->fetch();
     }
 }
