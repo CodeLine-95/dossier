@@ -4,15 +4,6 @@ use think\Db;
 class Archives extends Base{
     public function index(){
         $param = $this->request->get();
-        $where = ' 1=1 ';
-        if(!empty($param['name'])){
-            $where = $where.' and (a.name like "%'.$param['name'].'%" or b.branch_name like "%'.$param['name'].'%")';
-        }
-        $archives = Db::name('archives')->alias('a')
-            ->field(['a.*','b.branch_name'])
-            ->join('branch b','b.id = a.enter_id','LEFT')
-            ->where($where)->order('a.id','desc')->paginate(10);
-        $this->assign('archives',$archives);
         $this->assign('param',$param);
         return $this->fetch();
     }

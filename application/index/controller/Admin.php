@@ -30,6 +30,8 @@ class Admin extends Base{
                 return json(['code'=>-1,'msg'=>$e->getMessage()]);
             }
         }else{
+            $region = Db::name('region')->order('id desc')->select();
+            $this->assign('region',$region);
             return $this->fetch();
         }
     }
@@ -55,6 +57,8 @@ class Admin extends Base{
             $id = input('id');
             $field = Db::name('admin')->where(['id'=>$id])->find();
             $this->assign('field',$field);
+            $region = Db::name('region')->order('id desc')->select();
+            $this->assign('region',$region);
             return $this->fetch();
         }
     }

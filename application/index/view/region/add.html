@@ -43,23 +43,42 @@
 </style>
 <div class="site-content" style="background-color: #cccccc;">
     <div class="site-h1">
-        <i class="layui-icon layui-icon-left" onclick="window.location.href='/'"></i>管道添加
+        <i class="layui-icon layui-icon-left" onclick="window.location.href='/'"></i>区域添加
     </div>
     <div class="layui-container">
         <div class="site-text" style="margin-top: 30px;">
             <form class="layui-form" method="post">
+
                 <div class="layui-form-item">
-                    <div>管道编号</div>
+                    <div>区域名称</div>
                     <div class="layui-input-block">
-                        <input type="text" name="unit_id" required lay-verify="required" placeholder=""
-                            autocomplete="off" class="layui-input">
+                        <input type="text" name="region_name" required lay-verify="required" placeholder="" autocomplete="off"
+                            class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <div>管道名称</div>
+                    <div>区域简介</div>
                     <div class="layui-input-block">
-                        <input type="text" name="name" required lay-verify="required" placeholder="" autocomplete="off"
-                            class="layui-input">
+                        <textarea name="region_desc" class="layui-textarea"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div>指定角色</div>
+                    <div class="layui-input-block">
+                        <select name="group_id">
+                            {foreach $group as $g}
+                            <option value="{$g.id}">{$g.group_name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div>开启状态</div>
+                    <div class="layui-input-block">
+                        <select name="region_status">
+                            <option value="0">开启</option>
+                            <option value="1">关闭</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -74,10 +93,10 @@
                     var form = layui.form, upload = layui.upload, layer = layui.layer, $ = layui.jquery;
                     //提交
                     form.on('submit(add)', function (data) {
-                        $.post('{:url("index/pipes/add")}', data.field, function (res) {
+                        $.post('{:url("index/region/add")}', data.field, function (res) {
                             if (res.code == 0) {
                                 layer.msg('保存成功', { icon: 6, time: 1000 }, function () {
-                                    window.location.href = '{:url("index/pipes/index")}';
+                                    window.location.href = '{:url("index/region/index")}';
                                 })
                             } else {
                                 layer.msg('保存失败');

@@ -1,41 +1,63 @@
 {extend name="public/nav" /}
-{block name="title"} 管道添加 {/block}
+{block name="title"} 档案管理系统 {/block}
 
 {block name="content"}
-<div class="site-content">
-    <style type="text/css">
-        .layui-center {
-            margin: 10vh auto;
-        }
-
-        .layui-form-label {
-            width: auto !important;
-            padding: 9px 5px;
-        }
-
-        .layui-input-block {
-            margin-left: 75px;
-        }
-    </style>
-    <div class="layui-container" style="padding: 15px;">
-        <span class="layui-breadcrumb">
-            <a href="{:url('index/index/index')}">首页</a>
-            <a><cite>管道管理</cite></a>
-            <a href="{:url('index/pipes/index')}">管道列表</a>
-            <a><cite>编辑</cite></a>
-        </span>
-        <div class="site-text" style="margin-top: 10px;">
+<style>
+    html,body{
+        height: 100%;
+    }
+    input{
+        border: none;
+    }
+    .layui-input-block{
+        margin-left: 0px;
+    }
+    .layui-form-select dl dd.layui-this {
+        background-color: #1296db;
+        color: #fff;
+    }
+    #img img{
+        width: 120px;
+        height: 120px;
+        border-radius: 250px;
+    }
+    .layui-btn-color{
+        background-color: transparent;
+        color: #2D93CA;
+        font-weight: bold;
+        display: block;
+        width: 100%;
+        border: 1px solid #1296db;
+    }
+    .upload-img{
+        width: 30.5%;
+        padding: 1%;
+        border: 1px solid #ccc;
+        text-align: center;
+        float: left;
+    }
+    .upload-img img{
+        height: 60px;
+        margin-bottom: 5px;
+    }
+</style>
+<div class="site-content" style="background-color: #cccccc;">
+    <div class="site-h1">
+        <i class="layui-icon layui-icon-left" onclick="window.location.href='/'"></i>管道添加
+    </div>
+    <div class="layui-container">
+        <div class="site-text" style="margin-top: 30px;">
             <form class="layui-form" method="post">
                 <input type="hidden" name="id" value="{$field.id}">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">管道编号</label>
+                    <div>管道编号</div>
                     <div class="layui-input-block">
                         <input type="text" name="unit_id" value="{$field.unit_id}" required lay-verify="required"
                             placeholder="" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">管道名称</label>
+                    <div>管道名称</div>
                     <div class="layui-input-block">
                         <input type="text" name="name" value="{$field.name}" required lay-verify="required"
                             placeholder="" autocomplete="off" class="layui-input">
@@ -44,7 +66,7 @@
                 <input type="hidden" name="name_old" value="{$field.name}">
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="edit">保存</button>
+                        <button class="layui-btn layui-btn-color" lay-submit lay-filter="edit">保存</button>
                     </div>
                 </div>
             </form>

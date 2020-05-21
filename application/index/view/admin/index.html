@@ -25,7 +25,7 @@
         float: right;
     }
     .layui-ul-li{
-        height: 80px;
+        height: 90px;
         background-color: #eeeeee;
         border-radius: 10px;
         padding: 10px;
@@ -94,10 +94,16 @@
                         }else{
                             item['group_name'] = '暂无'
                         }
+                        if(item['region_name']){
+                            item['region_name'] = item['region_name']
+                        }else{
+                            item['region_name'] = '暂无'
+                        }
                         lis.push('<li class="layui-ul-li">\n' +
                         '                    <div class="layui-ul-li-left">\n' +
-                        '                        <div class="layui-ul-li-title">用户名：'+item['user_name']+'</div>\n' +
-                        '                        <div class="layui-ul-li-title">角色名：'+item['group_name']+'</div>\n' +
+                        '                        <div class="layui-ul-li-title">'+item['user_name']+'</div>\n' +
+                        '                        <div class="layui-ul-li-time">角色名：'+item['group_name']+'</div>\n' +
+                        '                        <div class="layui-ul-li-time">工作区：'+item['region_name']+'</div>\n' +
                         '                        <div class="layui-ul-li-time">'+item['create_time']+'</div>\n' +
                         '                    </div>\n' +
                         '                    <div class="layui-ul-li-right">\n' +

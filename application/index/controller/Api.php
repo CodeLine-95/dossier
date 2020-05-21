@@ -96,7 +96,8 @@ class Api extends Controller{
         $totalPage = ceil($count/$param['limit']);
         //分页数据
         $admin = Db::table('oil_admin')
-            ->field(['oil_admin.*','oil_group.group_name'])
+            ->field(['oil_admin.*','oil_group.group_name','oil_region.region_name'])
+            ->join('oil_region', 'oil_region.id=oil_admin.region_id','LEFT')
             ->join('oil_group_rules', 'oil_admin.id=oil_group_rules.uid','LEFT')
             ->join('oil_group', 'oil_group_rules.role_id=oil_group.id','LEFT')
             ->where($where)
@@ -119,5 +120,83 @@ class Api extends Controller{
         $totalPage = ceil($count/$param['limit']);
         $group = Db::name('group')->where($where)->order('id','desc')->paginate($param['limit']);
         return json(['code'=>0,'msg'=>'','pages'=>$totalPage,'data'=>$group]);
+    }
+
+    /**
+     * 档案ajax
+     */
+    public function archives_list(){
+        $param = $this->request->get();
+        $where = ' 1=1 ';
+        if(!empty($param['name'])){
+            $where = $where.' and (a.name like "%'.$param['name'].'%" or b.branch_name like "%'.$param['name'].'%")';
+        }
+        $param['limit'] = 10;
+        $count = Db::name('archives')->alias('a')
+            ->field(['a.*','b.branch_name','p.name pipe_name'])
+            ->join('branch b','b.id = a.enter_id','LEFT')
+            ->join('pipes p','p.unit_id = a.pipe_id','LEFT')
+            ->where($where)->count();
+        $totalPage = ceil($count/$param['limit']);
+        $archives = Db::name('archives')->alias('a')
+            ->field(['a.*','FROM_UNIXTIME(a.create_t) as create_time','b.branch_name','p.name pipe_name'])
+            ->join('branch b','b.id = a.enter_id','LEFT')
+            ->join('pipes p','p.unit_id = a.pipe_id','LEFT')
+            ->where($where)->order('a.id','desc')->paginate($param['limit']);
+        return json(['code'=>0,'msg'=>'','pages'=>$totalPage,'data'=>$archives]);
+    }
+
+    /**
+     * 公司ajax
+     */
+    public function branch_list(){
+        $param = request()->get();
+        $where = ' 1=1 ';
+        if(!empty($param['name'])){
+            $where = $where.' and (branch_name like "%'.$param['name'].'%")';
+        }
+        $param['limit'] = 10;
+        $count = Db::name('branch')->where($where)->order('id','desc')->count();
+        $totalPage = ceil($count/$param['limit']);
+        $branch = Db::name('branch')->where($where)->order('id','desc')->paginate($param['limit']);
+        return json(['code'=>0,'msg'=>'','pages'=>$totalPage,'data'=>$branch]);
+    }
+
+    /**
+     * 管道ajax
+     */
+    public function pipes_list(){
+        $param = request()->get();
+        $where = ' 1=1 ';
+        if(!empty($param['name'])){
+            $where = $where.' and (name like "%'.$param['name'].'%")';
+        }
+        $param['limit'] = 10;
+        $count = Db::name('pipes')->where($where)->order('id','desc')->count();
+        $totalPage = ceil($count/$param['limit']);
+        $pipes = Db::name('pipes')->where($where)->order('id','desc')->paginate($param['limit']);
+        return json(['code'=>0,'msg'=>'','pages'=>$totalPage,'data'=>$pipes]);
+    }
+
+    /**
+     * 区域ajax
+     */
+    public function region_list(){
+        $param = request()->get();
+        $where = ' 1=1 ';
+        if(!empty($param['name'])){
+            $where = $where.' and (r.region_name like "%'.$param['name'].'%")';
+        }
+        $param['limit'] = 10;
+        $count = Db::name('region')->alias('r')
+            ->field(['r.*','g.group_name'])
+            ->join('group g','g.id = a.group_id','LEFT')
+            ->where($where)->order('id','desc')->count();
+        $totalPage = ceil($count/$param['limit']);
+        $region = Db::name('region')->alias('r')
+            ->field(['r.*','g.group_name'])
+            ->join('group g','g.id = a.group_id','LEFT')
+            ->where($where)->order('id','desc')->paginate($param['limit']);
+        return json(['code'=>0,'msg'=>'','pages'=>$totalPage,'data'=>$region]);
     }
 }

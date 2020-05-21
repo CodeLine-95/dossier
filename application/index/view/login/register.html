@@ -16,6 +16,10 @@
         border-bottom: 1px solid #9F9F9F;
         color: #1296db;
     }
+    .layui-form-select dl dd.layui-this {
+        background-color: #1296db;
+        color: #fff;
+    }
     .layui-input-block{
         margin-left: 0px;
     }
@@ -39,7 +43,7 @@
         档案管理系统
     </div>
     <div class="layui-container">
-        <h1>登录</h1>
+        <h1>注册</h1>
         <div class="site-text" style="margin-top: 30px;">
             <form class="layui-form" method="post">
                 <div class="layui-form-item">
@@ -55,13 +59,18 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <div style="width: 100%;text-align: right;">
-                        <a href="{:url('index/login/register')}">注册</a>
+                    <div>工作区</div>
+                    <div class="layui-input-block">
+                        <select name="region_id">
+                            {foreach $region as $r}
+                            <option value="{$r.id}">{$r.region_name}</option>
+                            {/foreach}
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn layui-btn-color" lay-submit lay-filter="login">登录</button>
+                        <button class="layui-btn layui-btn-color" lay-submit lay-filter="register">注册</button>
                     </div>
                 </div>
             </form>
@@ -71,11 +80,11 @@
                     var form = layui.form,
                         $ = layui.jquery,layer = layui.layer;
                     //监听提交
-                    form.on('submit(login)', function(data){
-                        $.post('{:url("index/login/loginAction")}',data.field,function (res) {
+                    form.on('submit(register)', function(data){
+                        $.post('{:url("index/login/registerAction")}',data.field,function (res) {
                             if (res.code == 0){
                                 layer.msg(res.msg);
-                                window.location.href = '{:url("index/index")}';
+                                window.location.href = '{:url("index/login/index")}';
                             }else{
                                 layer.msg(res.msg);
                             }

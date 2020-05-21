@@ -25,7 +25,7 @@
         float: right;
     }
     .layui-ul-li{
-        height: 100px;
+        height: 80px;
         background-color: #eeeeee;
         border-radius: 10px;
         padding: 10px;
@@ -34,7 +34,7 @@
     .layui-ul-li-title{
         height: 30px;
         line-height: 30px;
-        font-size: 16px;
+        font-size: 20px;
         color: #1296db;
     }
     .layui-ul-li-time{
@@ -56,12 +56,12 @@
 </style>
 <div class="site-content" style="background-color: #cccccc;height: auto;">
     <div class="site-h1">
-        <i class="layui-icon layui-icon-left" onclick="window.location.href='/'"></i>档案管理
+        <i class="layui-icon layui-icon-left" onclick="window.location.href='/'"></i>区域列表
     </div>
     <div class="search">
         <form class="layui-form">
             <div class="layui-input-inline" style="margin-left:0px;width: calc( 100% - 64px );float: left">
-                <input type="text" name="name" value="{if condition='isset($param.name) && !empty($param.name)'}{$param.name}{/if}"  placeholder="档案名" autocomplete="off"
+                <input type="text" name="name" value="{if condition='isset($param.name) && !empty($param.name)'}{$param.name}{/if}"  placeholder="区域名" autocomplete="off"
                        class="layui-input">
             </div>
             <div class="layui-input-inline" style="margin-left:0px;">
@@ -86,33 +86,31 @@
             ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
                 //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
                 var name = $('input[name=name]').val();
-                $.get('{:url("index/api/archives_list")}?page='+page+'&name='+name, function(res){
+                $.get('{:url("index/api/region_list")}?page='+page+'&name='+name, function(res){
                     //假设你的列表返回在data集合中
                     var lis = [];
                     layui.each(res.data.data, function(index, item){
-                        if(item['pipe_name']){
-                            item['pipe_name'] = item['pipe_name']
+                        if(item['region_name']){
+                            item['region_name'] = item['region_name']
                         }else{
-                            item['pipe_name'] = '暂无'
+                            item['region_name'] = '暂无'
                         }
-                        if(item['branch_name']){
-                            item['branch_name'] = item['branch_name']
-                        }else{
-                            item['branch_name'] = '暂无'
+                        if(item['region_status'] == 0){
+                            item['region_status'] = '开启'
+                        }else if(item['region_status'] == 1){
+                            item['region_status'] = '关闭'
                         }
                         lis.push('<li class="layui-ul-li">\n' +
                             '                    <div class="layui-ul-li-left">\n' +
-                            '                        <div class="layui-ul-li-title">名称：'+item['name']+'</div>\n' +
-                            '                        <div class="layui-ul-li-time">管道：'+item['pipe_name']+'</div>\n' +
-                            '                        <div class="layui-ul-li-time">公司：'+item['branch_name']+'</div>\n' +
-                            '                        <div class="layui-ul-li-time">时间：'+item['create_time'].substr(0,10)+'</div>\n' +
+                            '                        <div class="layui-ul-li-title">'+item['region_name']+'</div>\n' +
+                            '                        <div class="layui-ul-li-time">角色：'+item['group_name']+'</div>\n' +
+                            '                        <div class="layui-ul-li-time">简介：'+item['region_desc']+'</div>\n' +
+                            '                        <div class="layui-ul-li-time">状态：'+item['region_status']+'</div>\n' +
                             '                    </div>\n' +
                             '                    <div class="layui-ul-li-right">\n' +
                             '                        <div class="layui-ul-li-action">\n' +
-                            '                             <a href="/index/archives/audit?id='+item['id']+'">审核</a>\n' +
-                            '                             <a href="/index/archives/show?id='+item['id']+'">查看</a>\n' +
-                            '                             <a href="/index/archives/edit?id='+item['id']+'">编辑</a>\n' +
-                            '                             <a href="javascript:;" class="del" onclick="del(this)" data-id="'+item['id']+'" data-name="'+item['name']+'">删除</a>\n' +
+                            '                             <a href="/index/region/edit?id='+item['id']+'">编辑</a>\n' +
+                            '                             <a href="javascript:;" class="del" onclick="del(this)" data-id="'+item['id']+'" data-name="'+item['region_name']+'">删除</a>\n' +
                             '                        </div>\n' +
                             '                    </div>\n' +
                             '                </li>');
@@ -133,7 +131,7 @@
             var id = $(obj).attr('data-id');
             var user_name = $(obj).attr('data-name');
             layer.confirm('您确定要删除 ( ' + user_name + ' ) ?', function () {
-                $.post('{:url("index/archives/del")}', {id: id}, function (res) {
+                $.post('{:url("index/region/del")}', {id: id}, function (res) {
                     layer.msg(res.msg);
                     window.location.reload();
                 }, 'json');

@@ -58,6 +58,16 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
+                    <div>工作区</div>
+                    <div class="layui-input-block">
+                        <select name="region_id">
+                            {foreach $region as $r}
+                            <option value="{$r.id}">{$r.region_name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <div class="layui-input-block">
                         <button class="layui-btn layui-btn-color" lay-submit lay-filter="add">保存</button>
                     </div>

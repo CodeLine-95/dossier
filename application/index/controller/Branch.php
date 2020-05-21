@@ -7,8 +7,8 @@ use think\Db;
  */
 class Branch extends Base{
     public function index(){
-        $branch = Db::name('branch')->order('id','desc')->paginate(10);
-        $this->assign('branch',$branch);
+        $param = $this->request->get();
+        $this->assign('param',$param);
         return $this->fetch();
     }
 

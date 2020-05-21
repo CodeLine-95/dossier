@@ -1,61 +1,83 @@
 {extend name="public/nav" /}
-{block name="title"} 公司列表添加 {/block}
+{block name="title"} 档案管理系统 {/block}
 
 {block name="content"}
-<div class="site-content">
-    <style type="text/css">
-        .layui-center {
-            margin: 10vh auto;
-        }
-    
-        .layui-form-label {
-            width: auto !important;
-            padding: 9px 5px;
-        }
-    
-        .layui-input-block {
-            margin-left: 100px;
-        }
-    </style>
-    <div class="layui-container" style="padding: 15px;">
-        <span class="layui-breadcrumb">
-            <a href="{:url('index/index/index')}">首页</a>
-            <a><cite>公司管理</cite></a>
-            <a href="{:url('index/branch/index')}">公司列表</a>
-            <a><cite>添加</cite></a>
-        </span>
-        <div class="site-text" style="margin-top: 10px;">
+<style>
+    html,body{
+        height: 100%;
+    }
+    input{
+        border: none;
+    }
+    .layui-input-block{
+        margin-left: 0px;
+    }
+    .layui-form-select dl dd.layui-this {
+        background-color: #1296db;
+        color: #fff;
+    }
+    #img img{
+        width: 120px;
+        height: 120px;
+        border-radius: 250px;
+    }
+    .layui-btn-color{
+        background-color: transparent;
+        color: #2D93CA;
+        font-weight: bold;
+        display: block;
+        width: 100%;
+        border: 1px solid #1296db;
+    }
+    .upload-img{
+        width: 30.5%;
+        padding: 1%;
+        border: 1px solid #ccc;
+        text-align: center;
+        float: left;
+    }
+    .upload-img img{
+        height: 60px;
+        margin-bottom: 5px;
+    }
+</style>
+<div class="site-content" style="background-color: #cccccc;">
+    <div class="site-h1">
+        <i class="layui-icon layui-icon-left" onclick="window.location.href='/'"></i>公司添加
+    </div>
+    <div class="layui-container">
+        <div class="site-text" style="margin-top: 30px;">
             <form class="layui-form" method="post">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">公司名称</label>
+                    <div>公司名称</div>
                     <div class="layui-input-block">
                         <input type="text" name="branch_name" required lay-verify="required" placeholder=""
                             autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">公司电话</label>
+                    <div>公司电话</div>
                     <div class="layui-input-block">
                         <input type="text" name="branch_tel" required lay-verify="required" placeholder="" autocomplete="off"
                             class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">联系人</label>
+                    <div>联系人</div>
                     <div class="layui-input-block">
                         <input type="text" name="branch_user" required lay-verify="required" placeholder="" autocomplete="off"
                             class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">备注</label>
+                    <div>备注</div>
                     <div class="layui-input-block">
                         <textarea name="branch_desc" class="layui-textarea"></textarea>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="add">保存</button>
+                        <button class="layui-btn layui-btn-color" lay-submit lay-filter="add">保存</button>
                     </div>
                 </div>
             </form>
