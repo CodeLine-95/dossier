@@ -37,7 +37,7 @@ class Login extends Controller{
     public function register(){
         //初始化admin账户的密码
         //echo password_hash(config('database.auth_key').'123456',PASSWORD_BCRYPT);
-        $region = Db::name('region')->order('id desc')->select();
+        $region = Db::name('region')->where(['region_status'=>0])->order('id desc')->select();
         $this->assign('region',$region);
         return $this->fetch();
     }
