@@ -190,12 +190,12 @@ class Api extends Controller{
         $param['limit'] = 10;
         $count = Db::name('region')->alias('r')
             ->field(['r.*','g.group_name'])
-            ->join('group g','g.id = a.group_id','LEFT')
+            ->join('group g','g.id = r.group_id','LEFT')
             ->where($where)->order('id','desc')->count();
         $totalPage = ceil($count/$param['limit']);
         $region = Db::name('region')->alias('r')
             ->field(['r.*','g.group_name'])
-            ->join('group g','g.id = a.group_id','LEFT')
+            ->join('group g','g.id = r.group_id','LEFT')
             ->where($where)->order('id','desc')->paginate($param['limit']);
         return json(['code'=>0,'msg'=>'','pages'=>$totalPage,'data'=>$region]);
     }
