@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fc72e908-f223-4f09-9353-18c33b13d254" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/index/controller/Group.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/index/controller/Group.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/index/controller/Login.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/index/controller/Login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/index/model/Rules.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/index/model/Rules.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/index/controller/Api.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/index/controller/Api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +86,7 @@
       <workItem from="1589871702963" duration="11410000" />
       <workItem from="1589887630089" duration="4023000" />
       <workItem from="1589964587052" duration="265000" />
-      <workItem from="1590045024647" duration="12136000" />
+      <workItem from="1590045024647" duration="12519000" />
     </task>
     <task id="LOCAL-00001" summary="更新数据库配置文件">
       <created>1589871748665</created>
@@ -146,7 +144,28 @@
       <option name="project" value="LOCAL" />
       <updated>1590057220233</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="登录权限验证判断调整和bug修复">
+      <created>1590057997640</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1590057997640</updated>
+    </task>
+    <task id="LOCAL-00010" summary="菜单图标">
+      <created>1590058185751</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1590058185751</updated>
+    </task>
+    <task id="LOCAL-00011" summary="区域api-bug修复">
+      <created>1590058276558</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1590058276558</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,17 +176,20 @@
     <MESSAGE value="页面布局排版调整" />
     <MESSAGE value="页面布局排版调整(第二版)" />
     <MESSAGE value="页面布局排版调整(第三版)，增加工作区域管理，新增注册功能，可以指定工作区域" />
-    <option name="LAST_COMMIT_MESSAGE" value="页面布局排版调整(第三版)，增加工作区域管理，新增注册功能，可以指定工作区域" />
+    <MESSAGE value="登录权限验证判断调整和bug修复" />
+    <MESSAGE value="菜单图标" />
+    <MESSAGE value="区域api-bug修复" />
+    <option name="LAST_COMMIT_MESSAGE" value="区域api-bug修复" />
   </component>
   <component name="WindowStateProjectService">
     <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1589876717686">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.78.1440.860@0.0.1920.1040" timestamp="1589876717686" />
-    <state x="560" y="109" key="CommitChangelistDialog2" timestamp="1590057996829">
+    <state x="560" y="109" key="CommitChangelistDialog2" timestamp="1590058275804">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="560" y="109" key="CommitChangelistDialog2/0.0.1920.1040/1920.78.1440.860@0.0.1920.1040" timestamp="1590057996829" />
+    <state x="560" y="109" key="CommitChangelistDialog2/0.0.1920.1040/1920.78.1440.860@0.0.1920.1040" timestamp="1590058275804" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1589964850840">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -180,10 +202,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="776" y="443" key="NewPhpFileDialog/0.0.1920.1040/1920.78.1440.860@0.0.1920.1040" timestamp="1590052964388" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1590057998860">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1590058277841">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.78.1440.860@0.0.1920.1040" timestamp="1590057998860" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.78.1440.860@0.0.1920.1040" timestamp="1590058277841" />
     <state x="752" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590057046477">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
