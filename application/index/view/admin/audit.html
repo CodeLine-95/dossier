@@ -12,6 +12,10 @@
     .layui-input-block{
         margin-left: 0px;
     }
+    .layui-form-select dl dd.layui-this {
+        background-color: #1296db;
+        color: #fff;
+    }
     #img img{
         width: 120px;
         height: 120px;
@@ -37,7 +41,7 @@
                 <div class="layui-form-item">
                     <div>分配角色</div>
                     <div class="layui-input-block">
-                        <select name="role_id">
+                        <select name="role_id" lay-filter="role_id">
                             {foreach $group as $g}
                                 <option value="{$g.id}">{$g.group_name}</option>
                             {/foreach}
@@ -47,10 +51,8 @@
                 <div class="layui-form-item">
                     <div>分配工作区</div>
                     <div class="layui-input-block">
-                        <select name="region_id">
-                            {foreach $region as $g}
-                            <option value="{$g.id}">{$g.region_name}</option>
-                            {/foreach}
+                        <select name="region_id" id="region_id">
+                            <option value="">请选择</option>
                         </select>
                     </div>
                 </div>
@@ -68,17 +70,38 @@
                         upload = layui.upload,
                         layer = layui.layer,
                         $ = layui.jquery;
+
+                    form.on('select(role_id)',function (data) {
+                        var group_id = data.value;
+                        $.post('{:url("index/api/group_region")}',{group_id:group_id},function (res) {
+                            if (res.code == 0) {
+                                var option = '';
+                                $.each(res.data,function (index,item) {
+                                    option += '<option value="'+item['id']+'">'+item['region_name']+'</option>';
+                                })
+                                console.log(option);
+                                $('#region_id').html(option);
+                                form.render('select')
+                            } else {
+                                layer.msg('获取失败');
+                            }
+                        },'json');
+                    });
                     //提交
                     form.on('submit(edit)', function (data) {
-                        $.post('{:url("index/admin/audit")}', data.field, function (res) {
-                            if (res.code == 0) {
-                                layer.msg('分配成功', { icon: 6, time: 1000 }, function () {
-                                    window.location.href = '{:url("index/admin/index")}';
-                                })
-                            } else {
-                                layer.msg('分配失败');
-                            }
-                        }, 'json');
+                        if (data.field.region_id == ''){
+                            layer.msg('工作区必须分配');
+                        }else {
+                            $.post('{:url("index/admin/audit")}', data.field, function (res) {
+                                if (res.code == 0) {
+                                    layer.msg('分配成功', {icon: 6, time: 1000}, function () {
+                                        window.location.href = '{:url("index/admin/index")}';
+                                    })
+                                } else {
+                                    layer.msg('分配失败');
+                                }
+                            }, 'json');
+                        }
                         return false;
                     });
                 })

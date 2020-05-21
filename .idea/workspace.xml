@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="fc72e908-f223-4f09-9353-18c33b13d254" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/index/controller/Login.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/index/controller/Login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/index/controller/Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/index/controller/Admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/index/controller/Api.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/index/controller/Api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/index/view/admin/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/index/view/admin/add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/index/view/admin/audit.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/index/view/admin/audit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/index/view/admin/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/index/view/admin/edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/index/view/group/allocation.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/index/view/group/allocation.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +50,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/extend" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
@@ -86,7 +91,8 @@
       <workItem from="1589871702963" duration="11410000" />
       <workItem from="1589887630089" duration="4023000" />
       <workItem from="1589964587052" duration="265000" />
-      <workItem from="1590045024647" duration="12733000" />
+      <workItem from="1590045024647" duration="12841000" />
+      <workItem from="1590061455715" duration="1226000" />
     </task>
     <task id="LOCAL-00001" summary="更新数据库配置文件">
       <created>1589871748665</created>
@@ -179,7 +185,21 @@
       <option name="project" value="LOCAL" />
       <updated>1590058465459</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="注册工作区限制开启状态">
+      <created>1590058582626</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1590058582626</updated>
+    </task>
+    <task id="LOCAL-00015" summary="用户分配角色增加工作区分配">
+      <created>1590061868042</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1590061868042</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -193,21 +213,23 @@
     <MESSAGE value="登录权限验证判断调整和bug修复" />
     <MESSAGE value="菜单图标" />
     <MESSAGE value="区域api-bug修复" />
-    <option name="LAST_COMMIT_MESSAGE" value="区域api-bug修复" />
+    <MESSAGE value="注册工作区限制开启状态" />
+    <MESSAGE value="用户分配角色增加工作区分配" />
+    <option name="LAST_COMMIT_MESSAGE" value="用户分配角色增加工作区分配" />
   </component>
   <component name="WindowStateProjectService">
     <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1589876717686">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="275" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.78.1440.860@0.0.1920.1040" timestamp="1589876717686" />
-    <state x="560" y="109" key="CommitChangelistDialog2" timestamp="1590058464677">
+    <state x="560" y="109" key="CommitChangelistDialog2" timestamp="1590061867273">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="560" y="109" key="CommitChangelistDialog2/0.0.1920.1040/1920.78.1440.860@0.0.1920.1040" timestamp="1590058464677" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1589964850840">
+    <state x="560" y="109" key="CommitChangelistDialog2/0.0.1920.1040/1920.78.1440.860@0.0.1920.1040" timestamp="1590061867273" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1590058636194">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.78.1440.860@0.0.1920.1040" timestamp="1589964850840" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.78.1440.860@0.0.1920.1040" timestamp="1590058636194" />
     <state x="546" y="360" key="NewPhpClassDialog" timestamp="1588608115576">
       <screen x="41" y="23" width="1639" height="1027" />
     </state>
@@ -216,10 +238,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="776" y="443" key="NewPhpFileDialog/0.0.1920.1040/1920.78.1440.860@0.0.1920.1040" timestamp="1590052964388" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1590058466832">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1590061904015">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.78.1440.860@0.0.1920.1040" timestamp="1590058466832" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.78.1440.860@0.0.1920.1040" timestamp="1590061904015" />
     <state x="752" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590057046477">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

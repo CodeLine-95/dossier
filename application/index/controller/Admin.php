@@ -116,8 +116,6 @@ class Admin extends Base{
         $this->assign('group',$group);
         $field = Db::name('admin')->where(['id'=>$id])->find();
         $this->assign('field',$field);
-        $region = Db::name('region')->where(['group_id'=>$group['id']])->order('id desc')->select();
-        $this->assign('region',$region);
         return $this->fetch();
     }
 }

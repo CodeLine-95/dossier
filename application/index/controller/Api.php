@@ -199,4 +199,21 @@ class Api extends Controller{
             ->where($where)->order('r.id','desc')->paginate($param['limit']);
         return json(['code'=>0,'msg'=>'','pages'=>$totalPage,'data'=>$region]);
     }
+
+    /**
+     * 查询角色的工作区
+     */
+    public function group_region(){
+        try {
+            if (request()->isPost()){
+                $params = request()->post();
+                $region = Db::name('region')->where(['group_id'=>$params['group_id']])->order('id desc')->select();
+                return json(['code'=>0,'msg'=>'','data'=>$region]);
+            }else{
+                return json(['code'=>-1,'msg'=>'访问错误']);
+            }
+        }catch (\Exception $e){
+            return json(['code'=>-1,'msg'=>$e->getMessage()]);
+        }
+    }
 }
