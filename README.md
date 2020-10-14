@@ -1,21 +1,21 @@
 应用部署
 ===============
-> * 环境搭建：**mysql** + **apache**
+> * 环境搭建：**mysql** + **apache** + **ThinkPHP5.0**
 > * 集成环境：**phpstudy**
 
 ---
 部署过程
 ===============
-* 进入phpstudy官网下载安装 **phpstudy**
+* 进入`phpstudy`官网下载安装 **phpstudy**
 * 安装**phpstudy**
 * 安装完成后：启动**phpstudy**
-* 启动apache和mysql
-* 将项目源码放入到phpstudy安装目录中的www目录下
-* 进入phpstudy网站功能栏配置虚拟域名
-* 文件目录绑定到public目录中
+* 启动`apache`和`mysql`
+* 将项目源码放入到`phpstudy`安装目录中的www目录下
+* 进入`phpstudy`网站功能栏配置虚拟域名
+* 文件目录绑定到`public`目录中
 * 配置完毕后进行数据库导入，这里推荐**Navicat**
-* 导入数据库后修改项目目录中的**application**的database.php文件中的数据库连接地址
-* 全部配置完毕之后，重启phpstudy
+* 导入数据库后修改项目目录中的**application**的`database.php`文件中的数据库连接地址
+* 全部配置完毕之后，重启`phpstudy`
 * 然后打开浏览器访问配置好的虚拟域名，如没问题，即可访问
 
 ThinkPHP 5.0
